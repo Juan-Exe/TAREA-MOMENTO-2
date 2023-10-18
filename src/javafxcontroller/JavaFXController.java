@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXML.java to edit this template
  */
-package tarea_momento.pkg2;
+package javafxcontroller;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,11 +14,11 @@ import javafx.stage.Stage;
  *
  * @author DAMIANA
  */
-public class Tarea_MOMENTO2 extends Application {
+public class JavaFXController extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/viewExample.fxml"));
         
         Scene scene = new Scene(root);
         
