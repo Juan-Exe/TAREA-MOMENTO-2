@@ -3,17 +3,24 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="back" prefHeight="470.0" prefWidth="727.0" style="-fx-background-color: #e3e4e5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.viewExampleController">
+<AnchorPane id="AnchorPane" fx:id="back" prefHeight="571.0" prefWidth="727.0" style="-fx-background-color: #e3e4e5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.viewExampleController">
     <children>
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <Pane layoutX="13.0" layoutY="14.0" prefHeight="145.0" prefWidth="702.0" style="-fx-background-color: #FFFFFF;">
+        <Label fx:id="label" layoutX="608.0" layoutY="191.0" minHeight="16" minWidth="69" text="Determinar">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Pane layoutX="12.0" layoutY="35.0" prefHeight="145.0" prefWidth="702.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <Button fx:id="button" alignment="CENTER" defaultButton="true" layoutX="611.0" layoutY="105.0" mnemonicParsing="false" onAction="#eventButton" text="Registrar">
                <cursor>
@@ -36,9 +43,9 @@
             <TextField fx:id="FechaVenceTextField" layoutX="26.0" layoutY="80.0" onKeyTyped="#eventKey" prefHeight="25.0" prefWidth="207.0" promptText="Fecha de vencimiento del producto" />
          </children>
       </Pane>
-      <Line endX="600.0" layoutX="115.0" layoutY="159.0" startX="-102.0" />
-      <Line endX="-81.0" endY="-276.0" layoutX="94.0" layoutY="290.0" startX="-81.0" startY="-131.0" />
-      <TableView fx:id="Table" layoutX="14.0" layoutY="171.0" prefHeight="285.0" prefWidth="586.0">
+      <Line endX="600.0" layoutX="114.0" layoutY="180.0" startX="-102.0" />
+      <Line endX="-81.0" endY="-276.0" layoutX="93.0" layoutY="311.0" startX="-81.0" startY="-131.0" />
+      <TableView fx:id="Table" layoutX="14.0" layoutY="191.0" prefHeight="341.0" prefWidth="586.0" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="127.0" AnchorPane.topAnchor="191.0">
         <columns>
           <TableColumn fx:id="idProducto" prefWidth="106.0" text="Id del producto" />
           <TableColumn fx:id="nomProducto" prefWidth="137.0" text="Nombre del producto" />
@@ -47,5 +54,57 @@
             <TableColumn fx:id="PrecioU" prefWidth="100.0" text="Precio" />
         </columns>
       </TableView>
+      <MenuBar fx:id="menu" layoutY="2.0" prefHeight="25.0" prefWidth="727.0">
+        <menus>
+          <Menu fx:id="buscar" mnemonicParsing="false" text="Buscar">
+            <items>
+              <MenuItem fx:id="mid" mnemonicParsing="false" onAction="#Action" text="idProducto" />
+                  <MenuItem fx:id="nom" mnemonicParsing="false" onAction="#Action2" text="nomProducto" />
+                  <MenuItem fx:id="fech" mnemonicParsing="false" onAction="#Action3" text="fechaLote" />
+                  <MenuItem fx:id="fechv" mnemonicParsing="false" onAction="#Action4" text="fechaVence" />
+                  <MenuItem fx:id="pre" mnemonicParsing="false" onAction="#Action5" text="Precio" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Pane layoutX="606.0" layoutY="275.0" prefHeight="123.0" prefWidth="114.0" style="-fx-background-color: #FFFF;">
+         <children>
+            <Line endX="51.0" layoutX="57.0" layoutY="14.0" startX="43.0" />
+            <Label layoutX="6.0" layoutY="7.0" text="VER EL PROMEDIO">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Line endX="43.5" endY="9.0" layoutX="65.0" layoutY="107.0" startX="43.5" startY="-92.5" />
+            <Line endX="43.0" endY="-68.5" layoutX="64.0" layoutY="185.0" startX="-58.0" startY="-69.0" />
+            <Button fx:id="mbutton" layoutX="11.0" layoutY="31.0" mnemonicParsing="false" onAction="#mayorpromedio" prefHeight="25.0" prefWidth="91.0" text="Mayor" />
+            <Button fx:id="mebutton" layoutX="11.0" layoutY="84.0" mnemonicParsing="false" onAction="#menopromedio" prefHeight="25.0" prefWidth="91.0" text="Menor" />
+            <Line endX="-21.5" endY="-80.0" layoutX="27.0" layoutY="101.0" startX="-21.5" startY="14.5" />
+         </children>
+      </Pane>
+      <Line endY="-39.0" layoutX="606.0" layoutY="437.0" startX="1.0" startY="-162.0" />
+      <Line endY="-39.0" layoutX="719.0" layoutY="437.0" startX="1.0" startY="-162.0" />
+      <Line endX="110.2928466796875" endY="-68.29290771484375" layoutX="608.0" layoutY="467.0" startX="-1.0" startY="-69.0" />
+      <Line endX="112.5" endY="-68.70709228515625" layoutX="607.0" layoutY="343.0" startX="0.70709228515625" startY="-68.70709228515625" />
+      <Pane layoutX="605.0" layoutY="408.0" prefHeight="123.0" prefWidth="114.0" style="-fx-background-color: #FFFF;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="605.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="408.0">
+         <children>
+            <Line endX="51.0" layoutX="57.0" layoutY="14.0" startX="25.0" />
+            <Label layoutX="6.0" layoutY="7.0" text="VER EL PRECIO">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Line endX="43.5" endY="9.0" layoutX="65.0" layoutY="107.0" startX="43.5" startY="-92.5" />
+            <Line endX="43.0" endY="-68.5" layoutX="64.0" layoutY="185.0" startX="-58.0" startY="-69.0" />
+            <Button fx:id="pMbutton" layoutX="11.0" layoutY="31.0" mnemonicParsing="false" onAction="#mayorpecio" prefHeight="25.0" prefWidth="91.0" text="Mayor" />
+            <Button fx:id="pmbutton" layoutX="11.0" layoutY="84.0" mnemonicParsing="false" onAction="#menorprecio" prefHeight="25.0" prefWidth="91.0" text="Menor" />
+            <Line endX="-21.5" endY="-80.0" layoutX="27.0" layoutY="101.0" startX="-21.5" startY="14.5" />
+         </children>
+      </Pane>
+      <Line endY="-39.0" layoutX="605.0" layoutY="570.0" startX="1.0" startY="-162.0" />
+      <Line endY="-39.0" layoutX="718.0" layoutY="570.0" startX="1.0" startY="-162.0" />
+      <Line endX="110.2928466796875" endY="-68.29290771484375" layoutX="607.0" layoutY="600.0" startX="-1.0" startY="-69.0" />
+      <Line endX="112.5" endY="-68.70709228515625" layoutX="606.0" layoutY="476.0" startX="0.70709228515625" startY="-68.70709228515625" />
+      <Button fx:id="pbutton" layoutX="607.0" layoutY="221.0" mnemonicParsing="false" onAction="#promedio" prefHeight="45.0" prefWidth="113.0" text="Promedio" />
     </children>
 </AnchorPane>

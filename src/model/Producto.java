@@ -16,6 +16,14 @@ public class Producto {
     String FechaVence;
     float PrecioU;
 
+    public Producto() {
+        idProducto=-1;
+        nomProducto=FechaLote=FechaVence="";
+        PrecioU=-1;
+    }
+    
+    
+
     public Producto(int idProducto, String nomProducto, String FechaLote, String FechaVence, float PrecioU) {
         this.idProducto = idProducto;
         this.nomProducto = nomProducto;
@@ -23,6 +31,9 @@ public class Producto {
         this.FechaVence = FechaVence;
         this.PrecioU = PrecioU;
     }
+
+
+   
 
     public int getIdProducto() {
         return idProducto;
@@ -63,6 +74,8 @@ public class Producto {
     public void setPrecioU(float PrecioU) {
         this.PrecioU = PrecioU;
     }
+    
+    
     
 }
 
