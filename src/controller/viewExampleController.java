@@ -7,8 +7,11 @@ package controller;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -24,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 import model.Pila;
 import model.Producto;
@@ -36,6 +41,8 @@ public class viewExampleController implements Initializable {
     
     
     //Button promedio
+    
+   
     
     @FXML
     Button pbutton;
@@ -51,6 +58,20 @@ public class viewExampleController implements Initializable {
     
     @FXML
     Button pmbutton;
+    
+    @FXML
+    private AnchorPane back;
+    
+    @FXML
+    private Label label;
+    
+    @FXML
+    DatePicker FechaVenceDate;
+    
+    @FXML
+    DatePicker FechaLoteDate;
+    
+    
     
     @FXML
     private void promedio(ActionEvent event){
@@ -120,6 +141,22 @@ public class viewExampleController implements Initializable {
     
     //FINAL PROMEDIO
     
+    @FXML
+    private Button Salir;
+    
+    @FXML
+    private Button limpiar;
+
+   @FXML
+    private void limpiarTabla(ActionEvent event) {
+    Productos.clear();
+}
+    @FXML
+    private void salir(ActionEvent event) {
+    System.exit(0);
+}
+    
+    
     //MENU
     
     @FXML
@@ -140,8 +177,20 @@ public class viewExampleController implements Initializable {
     @FXML
     private MenuItem fechv;
     
-       @FXML
+    @FXML
     private MenuItem pre;
+       
+    @FXML
+    private Menu listar;
+    
+    
+    @FXML
+    private MenuItem fechM;
+    
+    @FXML
+    private MenuItem fechvM;
+    
+        
 
     
     
@@ -153,11 +202,11 @@ public class viewExampleController implements Initializable {
         
         if (producto != null) {
                 // Mostrar los detalles del producto
-                String detalles = "ID: " + producto.getIdProducto()+
-                                  "\nNombre: " + producto.getNomProducto()+
-                                  "\nFecha Lote: " + producto.getFechaLote() +
-                                  "\nFecha Vencimiento: " + producto.getFechaVence() +
-                                  "\nPrecio: " + producto.getPrecioU();
+                String detalles = "ID: " + producto.getIdProducto() +
+                              "\nNombre: " + producto.getNomProducto() +
+                              "\nFecha Lote: " + producto.getFechaLote().getValue() +
+                              "\nFecha Vencimiento: " + producto.getFechaVence().getValue() +
+                              "\nPrecio: " + producto.getPrecioU();
                 JOptionPane.showMessageDialog(null, detalles, "Producto Encontrado", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 // Mostrar un mensaje indicando que el producto no se encontró
@@ -175,11 +224,11 @@ public class viewExampleController implements Initializable {
         
          if (producto != null) {
                 // Mostrar los detalles del producto
-                String detalles = "ID: " + producto.getIdProducto()+
-                                  "\nNombre: " + producto.getNomProducto()+
-                                  "\nFecha Lote: " + producto.getFechaLote() +
-                                  "\nFecha Vencimiento: " + producto.getFechaVence() +
-                                  "\nPrecio: " + producto.getPrecioU();
+                String detalles = "ID: " + producto.getIdProducto() +
+                              "\nNombre: " + producto.getNomProducto() +
+                              "\nFecha Lote: " + producto.getFechaLote().getValue() +
+                              "\nFecha Vencimiento: " + producto.getFechaVence().getValue() +
+                              "\nPrecio: " + producto.getPrecioU();
                 JOptionPane.showMessageDialog(null, detalles, "Producto Encontrado", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 // Mostrar un mensaje indicando que el producto no se encontró
@@ -189,43 +238,48 @@ public class viewExampleController implements Initializable {
     
     @FXML
     private void Action3(ActionEvent event){
-        
-        String FechaL = JOptionPane.showInputDialog("Ingrese la Fecha Lote que desea buscar");
-        Producto producto = model.getInfoProductoFechaL(FechaL);
-        
+    try {
+        LocalDate fechaL = LocalDate.parse(JOptionPane.showInputDialog("Ingrese la Fecha Lote que desea buscar (yyyy-MM-dd)"));
+        Producto producto = model.getInfoProductoFechaL(fechaL);
+
         if (producto != null) {
-                // Mostrar los detalles del producto
-                String detalles = "ID: " + producto.getIdProducto()+
-                                  "\nNombre: " + producto.getNomProducto()+
-                                  "\nFecha Lote: " + producto.getFechaLote() +
-                                  "\nFecha Vencimiento: " + producto.getFechaVence() +
-                                  "\nPrecio: " + producto.getPrecioU();
-                JOptionPane.showMessageDialog(null, detalles, "Producto Encontrado", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                // Mostrar un mensaje indicando que el producto no se encontró
-                JOptionPane.showMessageDialog(null, "No se encontró un producto con la Fecha Lote " + FechaL, "Producto No Encontrado", JOptionPane.ERROR_MESSAGE);
-            }
+            // Mostrar los detalles del producto
+            String detalles = "ID: " + producto.getIdProducto() +
+                              "\nNombre: " + producto.getNomProducto() +
+                              "\nFecha Lote: " + producto.getFechaLote().getValue() +
+                              "\nFecha Vencimiento: " + producto.getFechaVence().getValue() +
+                              "\nPrecio: " + producto.getPrecioU();
+            
+            JOptionPane.showMessageDialog(null, detalles, "Producto Encontrado", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            // Mostrar un mensaje indicando que el producto no se encontró
+            JOptionPane.showMessageDialog(null, "No se encontró un producto con la Fecha Lote " + fechaL, "Producto No Encontrado", JOptionPane.ERROR_MESSAGE);
         }
+    } catch (DateTimeParseException e) {
+        JOptionPane.showMessageDialog(null, "Formato de fecha inválido, por favor ingrese una fecha en el formato yyyy-MM-dd", "Fecha Inválida", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+       
     
      @FXML
     private void Action4(ActionEvent event){
-        
-         String FechaV = JOptionPane.showInputDialog("Ingrese la Fecha Vencimiento que desea buscar");
-        Producto producto = model.getInfoProductoFechaL(FechaV);
-        
-         if (producto != null) {
-                // Mostrar los detalles del producto
-                String detalles = "ID: " + producto.getIdProducto()+
-                                  "\nNombre: " + producto.getNomProducto()+
-                                  "\nFecha Lote: " + producto.getFechaLote() +
-                                  "\nFecha Vencimiento: " + producto.getFechaVence() +
-                                  "\nPrecio: " + producto.getPrecioU();
-                JOptionPane.showMessageDialog(null, detalles, "Producto Encontrado", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                // Mostrar un mensaje indicando que el producto no se encontró
-                JOptionPane.showMessageDialog(null, "No se encontró un producto con la Fecha Vencimiento: " + FechaV, "Producto No Encontrado", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+    LocalDate fechaV = LocalDate.parse(JOptionPane.showInputDialog("Ingrese la Fecha Vencimiento que desea buscar (yyyy-MM-dd)"));
+    Producto producto = model.getInfoProductoFechaV(fechaV);
+
+    if (producto != null) {
+        // Mostrar los detalles del producto
+         String detalles = "ID: " + producto.getIdProducto() +
+                              "\nNombre: " + producto.getNomProducto() +
+                              "\nFecha Lote: " + producto.getFechaLote().getValue() +
+                              "\nFecha Vencimiento: " + producto.getFechaVence().getValue() +
+                              "\nPrecio: " + producto.getPrecioU();
+        JOptionPane.showMessageDialog(null, detalles, "Producto Encontrado", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        // Mostrar un mensaje indicando que el producto no se encontró
+        JOptionPane.showMessageDialog(null, "No se encontró un producto con la Fecha de Vencimiento " + fechaV, "Producto No Encontrado", JOptionPane.ERROR_MESSAGE);
+    }
+}
     
         @FXML
     private void Action5(ActionEvent event){
@@ -235,11 +289,11 @@ public class viewExampleController implements Initializable {
         
          if (producto != null) {
                 // Mostrar los detalles del producto
-                String detalles = "ID: " + producto.getIdProducto()+
-                                  "\nNombre: " + producto.getNomProducto()+
-                                  "\nFecha Lote: " + producto.getFechaLote() +
-                                  "\nFecha Vencimiento: " + producto.getFechaVence() +
-                                  "\nPrecio: " + producto.getPrecioU();
+                String detalles = "ID: " + producto.getIdProducto() +
+                              "\nNombre: " + producto.getNomProducto() +
+                              "\nFecha Lote: " + producto.getFechaLote().getValue() +
+                              "\nFecha Vencimiento: " + producto.getFechaVence().getValue() +
+                              "\nPrecio: " + producto.getPrecioU();
                 JOptionPane.showMessageDialog(null, detalles, "Producto Encontrado", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 // Mostrar un mensaje indicando que el producto no se encontró
@@ -247,7 +301,57 @@ public class viewExampleController implements Initializable {
             }
         }
     
+    //LISTAR POR MES
+    @FXML
+    private void mostrarProductosPorMesLote(ActionEvent event) {
+    int mes = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el mes que desea buscar"));
+
+    List<Producto> productosMes = model.getProductosPorMesLote(mes);
+
+    if (!productosMes.isEmpty()) {
+        StringBuilder detalles = new StringBuilder("Productos con mes de lote " + mes + ":\n");
+
+        for (Producto producto : productosMes) {
+            detalles.append("ID: ").append(producto.getIdProducto())
+                    .append(" - Nombre: ").append(producto.getNomProducto())
+                    .append(" - Fecha Lote: ").append(producto.getFechaLote().getValue())
+                    .append(" - Fecha Vencimiento: ").append(producto.getFechaVence().getValue())
+                    .append(" - Precio: ").append(producto.getPrecioU())
+                    .append("\n");
+        }
+
+        JOptionPane.showMessageDialog(null, detalles.toString(), "Productos por Mes de Lote", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(null, "No se encontraron productos con mes de lote " + mes, "No se encontraron productos", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    @FXML
+private void mostrarProductosPorMesVence(ActionEvent event) {
+    int mes = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el mes que desea buscar"));
+
+    List<Producto> productosMes = model.getProductosPorMesVence(mes);
+
+    if (!productosMes.isEmpty()) {
+        StringBuilder detalles = new StringBuilder("Productos con mes de vencimiento " + mes + ":\n");
+
+        for (Producto producto : productosMes) {
+            detalles.append("ID: ").append(producto.getIdProducto())
+                    .append(" - Nombre: ").append(producto.getNomProducto())
+                    .append(" - Fecha Lote: ").append(producto.getFechaLote().getValue())
+                    .append(" - Fecha Vencimiento: ").append(producto.getFechaVence().getValue())
+                    .append(" - Precio: ").append(producto.getPrecioU())
+                    .append("\n");
+        }
+        
+
+        JOptionPane.showMessageDialog(null, detalles.toString(), "Productos por Mes de Vencimiento", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(null, "No se encontraron productos con mes de vencimiento " + mes, "No se encontraron productos", JOptionPane.ERROR_MESSAGE);
+    }
+}
     
+    //FIN LISTAR POR MES
     
     
     //FIN MENU
@@ -266,11 +370,12 @@ public class viewExampleController implements Initializable {
     @FXML
     private TableColumn<Producto, String> nomProducto;
     
-    @FXML
-    private TableColumn<Producto, String> fechaLote;
-    
      @FXML
-    private TableColumn<Producto, String> fechaVence;
+    private TableColumn<Producto, LocalDate> FechaLote;
+
+    @FXML
+    private TableColumn<Producto, LocalDate> FechaVence;
+
     
     @FXML
     private TableColumn<Producto, Float> PrecioU;
@@ -285,7 +390,7 @@ public class viewExampleController implements Initializable {
     //TEXT FIELD----------------------------------------------------------------
     
     @FXML
-    private TextField idProductoTextField, nomProductoTextField,FechaLoteTextField,FechaVenceTextField,PrecioUTextField;
+    private TextField idProductoTextField,nomProductoTextField,PrecioUTextField;
     
     @FXML
     private void eventKey(KeyEvent event){
@@ -293,7 +398,6 @@ public class viewExampleController implements Initializable {
         Object evt = event.getSource();
         
      
-        
         if(evt.equals(idProductoTextField)){
         
             if(!Character.isDigit(event.getCharacter().charAt(0))){
@@ -306,17 +410,6 @@ public class viewExampleController implements Initializable {
                 event.consume();
             }
             
-        }else if (evt.equals(FechaLoteTextField)){
-            
-            if(!Character.isLetter(event.getCharacter().charAt(0)) && !Character.isDigit(event.getCharacter().charAt(0))){
-                event.consume();
-            }
-           }else if (evt.equals(FechaVenceTextField)){
-            
-            if(!Character.isLetter(event.getCharacter().charAt(0)) && !Character.isDigit(event.getCharacter().charAt(0))){
-                event.consume();
-            
-            }
         }else if (evt.equals(PrecioUTextField)){ 
             
             if(!Character.isDigit(event.getCharacter().charAt(0))){
@@ -332,58 +425,44 @@ public class viewExampleController implements Initializable {
     
     @FXML
     private void eventButton(ActionEvent event){
-        int id = Integer.parseInt(idProductoTextField.getText());
-        String nombre = nomProductoTextField.getText();
-        float precio = Float.parseFloat(PrecioUTextField.getText());
-        String fechaLot = FechaLoteTextField.getText();
-        String fechaVen = FechaVenceTextField.getText();
-        
-        
-        
-        if (model.existeProductoConID(id)){
-            JOptionPane.showMessageDialog(null,
-                    " ID  producto ya esta registrado"
-                + "\n Ya existe un producto con el ID: " + id );
-            
-        }else 
-            
-            if (model.existeProductoConNombre(nombre)){
-            JOptionPane.showMessageDialog(null,
-                    " Nombre del producto ya esta registrado"
-                + "\n Ya existe un producto con el ID: " + nombre );
-        }else{
-            
-            Producto producto = new Producto(id, nombre, fechaLot, fechaVen, precio);
-            model.setPush(producto);
-            Productos.add(producto);
-            
-            idProductoTextField.clear();
-            nomProductoTextField.clear();
-            PrecioUTextField.clear();
-            FechaLoteTextField.clear();
-            FechaVenceTextField.clear();
-            
-            JOptionPane.showMessageDialog(null, "Se ha  agegado elementos a la Pila");
-            
-        }
-        
+    int id = Integer.parseInt(idProductoTextField.getText());
+    String nombre = nomProductoTextField.getText();
+    float precio = Float.parseFloat(PrecioUTextField.getText());
+    LocalDate fechaLote = FechaLoteDate.getValue();
+    LocalDate fechaVence = FechaVenceDate.getValue();
+
+    if (model.existeProductoConID(id)){
+        JOptionPane.showMessageDialog(null,
+                " ID  producto ya esta registrado"
+            + "\n Ya existe un producto con el ID: " + id );
+
+    }else if (model.existeProductoConNombre(nombre)){
+        JOptionPane.showMessageDialog(null,
+                " Nombre del producto ya esta registrado"
+            + "\n Ya existe un producto con el ID: " + nombre );
+    }else{
+        Producto producto = new Producto(id, nombre, fechaLote, fechaVence, precio);
+        model.setPush(producto);
+        Productos.add(producto);
+        idProductoTextField.clear();
+        nomProductoTextField.clear();
+        PrecioUTextField.clear();
+
+        JOptionPane.showMessageDialog(null, "Se ha  agegado elementos a la Pila");
     }
+}
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        idProducto.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("idProducto"));
-        nomProducto.setCellValueFactory(new PropertyValueFactory<Producto, String>("nomProducto"));
-        PrecioU.setCellValueFactory(new PropertyValueFactory<Producto, Float>("PrecioU"));
-        fechaLote.setCellValueFactory(new PropertyValueFactory<Producto, String>("fechaLote"));
-        fechaVence.setCellValueFactory(new PropertyValueFactory<Producto, String>("fechaVence"));
-        
-        // Inicializa la tabla con los datos de la
-        Table.setItems(Productos);
-       
-        
+    idProducto.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("idProducto"));
+    nomProducto.setCellValueFactory(new PropertyValueFactory<Producto, String>("nomProducto"));
+    PrecioU.setCellValueFactory(new PropertyValueFactory<Producto, Float>("PrecioU"));
+    FechaLote.setCellValueFactory(cellData -> cellData.getValue().getFechaLote());
+    FechaVence.setCellValueFactory(cellData -> cellData.getValue().getFechaVence());
+    
+    Table.setItems(Productos);
 
+}
         
-    }
-        
-       
+          
 }

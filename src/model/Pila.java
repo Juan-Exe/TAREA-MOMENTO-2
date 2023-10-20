@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -76,28 +77,26 @@ public Producto getInfoProductonom (String nombre){
         return null;
     }
 
-public Producto getInfoProductoFechaL (String FechaL){
+public Producto getInfoProductoFechaL (LocalDate FechaL){
     for (Producto producto : productos) {
-        
-            if (producto.getFechaLote()== null ? FechaL == null : producto.getFechaLote().equals(FechaL)) {
-                
-                return producto;
-            }
+        if (producto.getFechaLote().getValue().equals(FechaL)) {
+            return producto;
         }
-        return null;
     }
+    return null;
+}
 
 
-public Producto getInfoProductoFechaV (String FechaV){
+
+public Producto getInfoProductoFechaV (LocalDate FechaV){
     for (Producto producto : productos) {
-        
-            if (producto.getFechaVence()== null ? FechaV == null : producto.getFechaVence().equals(FechaV)) {
-                
-                return producto;
-            }
+        if (producto.getFechaVence().getValue().equals(FechaV)) {
+            return producto;
         }
-        return null;
     }
+    return null;
+}
+
 public Producto getInfoProductoPrecio (float Precio){
     for (Producto producto : productos) {
         
@@ -180,7 +179,29 @@ public List<Producto> getProductosMenorPromedio() {
 
         return productoMenorPrecio;
     }
+    
+   public List<Producto> getProductosPorMesLote(int mes) {
+    List<Producto> productosMes = new ArrayList<>();
+    for (Producto producto : productos) {
+        if (producto.getFechaLote().getValue().getMonthValue() == mes) {
+            productosMes.add(producto);
+        }
+    }
+    return productosMes;
 }
+
+public List<Producto> getProductosPorMesVence(int mes) {
+    List<Producto> productosMes = new ArrayList<>();
+    for (Producto producto : productos) {
+        if (producto.getFechaVence().getValue().getMonthValue() == mes) {
+            productosMes.add(producto);
+        }
+    }
+    return productosMes;
+}
+}
+    
+
 
 
 

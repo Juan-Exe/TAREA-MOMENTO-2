@@ -4,6 +4,10 @@
  */
 package model;
 
+import java.time.LocalDate;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 /**
  *
  * @author DAMIANA
@@ -12,28 +16,28 @@ public class Producto {
  
     int idProducto;
     String nomProducto;
-    String FechaLote;
-    String FechaVence;
+    private ObjectProperty<LocalDate> FechaLote;
+    private ObjectProperty<LocalDate> FechaVence;
+
+
     float PrecioU;
 
     public Producto() {
         idProducto=-1;
-        nomProducto=FechaLote=FechaVence="";
+        nomProducto="";
         PrecioU=-1;
+        FechaLote=FechaVence=new SimpleObjectProperty<>(LocalDate.now());
     }
     
     
 
-    public Producto(int idProducto, String nomProducto, String FechaLote, String FechaVence, float PrecioU) {
+    public Producto(int idProducto, String nomProducto,LocalDate  FechaLote,LocalDate FechaVence, float PrecioU) {
         this.idProducto = idProducto;
         this.nomProducto = nomProducto;
-        this.FechaLote = FechaLote;
-        this.FechaVence = FechaVence;
+        this.FechaLote = new SimpleObjectProperty<>(FechaLote);
+        this.FechaVence = new SimpleObjectProperty<>(FechaVence);
         this.PrecioU = PrecioU;
     }
-
-
-   
 
     public int getIdProducto() {
         return idProducto;
@@ -51,19 +55,19 @@ public class Producto {
         this.nomProducto = nomProducto;
     }
 
-    public String getFechaLote() {
+    public ObjectProperty<LocalDate> getFechaLote() {
         return FechaLote;
     }
 
-    public void setFechaLote(String FechaLote) {
+    public void setFechaLote(ObjectProperty<LocalDate> FechaLote) {
         this.FechaLote = FechaLote;
     }
 
-    public String getFechaVence() {
+    public ObjectProperty<LocalDate> getFechaVence() {
         return FechaVence;
     }
 
-    public void setFechaVence(String FechaVence) {
+    public void setFechaVence(ObjectProperty<LocalDate> FechaVence) {
         this.FechaVence = FechaVence;
     }
 
@@ -74,8 +78,7 @@ public class Producto {
     public void setPrecioU(float PrecioU) {
         this.PrecioU = PrecioU;
     }
-    
-    
+
     
 }
 
