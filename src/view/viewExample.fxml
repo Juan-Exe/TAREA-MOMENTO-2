@@ -42,7 +42,7 @@
             <Line endX="-79.5" endY="-283.0" layoutX="782.0" layoutY="283.0" startX="-79.5" startY="-138.5" />
             <DatePicker fx:id="FechaVenceDate" layoutX="26.0" layoutY="80.0" prefHeight="25.0" prefWidth="207.0" promptText="Ingrese FechaVencimiento" />
             <DatePicker fx:id="FechaLoteDate" layoutX="478.0" layoutY="39.0" prefHeight="25.0" prefWidth="196.0" promptText="Ingrese FechaLote" />
-            <Button fx:id="limpiar" layoutX="550.0" layoutY="105.0" mnemonicParsing="false" onAction="#limpiarTabla" text="Limpiar" />
+            <Button fx:id="limpiar" layoutX="546.0" layoutY="105.0" mnemonicParsing="false" onAction="#limpiarTabla" text="Eliminar" />
          </children>
       </Pane>
       <Line endX="600.0" layoutX="114.0" layoutY="180.0" startX="-102.0" />
@@ -115,5 +115,6 @@
       <Line endX="112.5" endY="-68.70709228515625" layoutX="606.0" layoutY="476.0" startX="0.70709228515625" startY="-68.70709228515625" />
       <Button fx:id="pbutton" layoutX="607.0" layoutY="221.0" mnemonicParsing="false" onAction="#promedio" prefHeight="45.0" prefWidth="113.0" text="Promedio" />
       <Button fx:id="Salir" layoutX="14.0" layoutY="540.0" mnemonicParsing="false" onAction="#salir" text="Salir" />
+      <Button fx:id="modificar" layoutX="63.0" layoutY="540.0" mnemonicParsing="false" onAction="#modificarProducto" text="Modificar" />
     </children>
 </AnchorPane>

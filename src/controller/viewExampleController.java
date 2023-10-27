@@ -149,12 +149,64 @@ public class viewExampleController implements Initializable {
 
    @FXML
     private void limpiarTabla(ActionEvent event) {
-    Productos.clear();
+    Producto productoDesapilado = model.setPop();
+    if (productoDesapilado != null) {
+        
+        Productos.remove(productoDesapilado);
+        JOptionPane.showMessageDialog(null, "Se ha eliminado el ultomo elemento de la pila");
+    } else {
+        
+        JOptionPane.showMessageDialog(null, "No hay productos en la pila", "Pila Vacía", JOptionPane.ERROR_MESSAGE);
+    }
 }
+
+
     @FXML
     private void salir(ActionEvent event) {
     System.exit(0);
 }
+    //MODIFICAR DATO
+    
+    @FXML
+    private Button modificar;
+    
+    @FXML
+    private void modificarProducto(ActionEvent event) {
+    Producto productoSeleccionado = Table.getSelectionModel().getSelectedItem();
+
+    if (productoSeleccionado != null) {
+        
+             // Preguntar por el nuevo id
+        int nuevoId = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nuevo ID para el producto"));
+
+        // Preguntar por el nuevo nombre
+        String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre para el producto");
+
+        // Preguntar por la nueva fecha de lote
+        LocalDate nuevaFechaLote = LocalDate.parse(JOptionPane.showInputDialog("Ingrese la nueva fecha de lote (yyyy-MM-dd)"));
+
+        // Preguntar por la nueva fecha de vencimiento
+        LocalDate nuevaFechaVence = LocalDate.parse(JOptionPane.showInputDialog("Ingrese la nueva fecha de vencimiento (yyyy-MM-dd)"));
+
+        // Preguntar por el nuevo precio
+        float nuevoPrecio = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el nuevo precio para el producto"));
+
+        // Actualizar el producto con los nuevos datos
+        productoSeleccionado.setIdProducto(nuevoId);
+        productoSeleccionado.setNomProducto(nuevoNombre);
+        productoSeleccionado.setFechaLote(new SimpleObjectProperty<>(nuevaFechaLote));
+        productoSeleccionado.setFechaVence(new SimpleObjectProperty<>(nuevaFechaVence));
+        productoSeleccionado.setPrecioU(nuevoPrecio);
+
+        // Refrescar la tabla para mostrar los datos actualizados
+        Table.refresh();
+        
+       
+    } else {
+        JOptionPane.showMessageDialog(null, "No hay ningún producto seleccionado", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+    //FIN MODIFICAR DATO
     
     
     //MENU
